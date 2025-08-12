@@ -1,0 +1,274 @@
+/* Color hexcodes: 
+silvery grey: #a8aaad
+background grey: #59595b
+big dumb black: #231f20
+
+
+Responsiveness sizes:
+desktop size: 1920px
+tablet size: 800px
+phone size: 450px ~
+
+glowing text: https://www.w3schools.com/howto/howto_css_glowing_text.asp
+
+
+refer to place images side by size w3schools
+*/
+
+html{
+font-size: 12px;
+}
+
+body,h1,h2,p,q,video,img {/* reset styles */
+margin: 0;
+padding: 0;
+border: 0;
+}
+
+@font-face {
+  font-family:blackerDisplay;
+  src: url(blackerDisplay.ttf);
+}
+
+@font-face {
+  font-family: gillSansMedium;
+  src: url(gillSansMedium.ttf);
+}
+
+body {
+  background-color: #59595b;
+}
+
+h2{
+  text-align: center;
+   font-size: 144px;
+   font-family: blackerDisplay, serif;
+   color: #231f20;
+}
+
+
+h1{
+  text-align: center;
+   font-size: 72px;
+   font-family: blackerDisplay, serif;
+   color: #231f20;
+}
+
+p{
+  font-size: 20px;
+  font-family: gillSansMedium, Times, serif;
+  color:#a8aaad;
+  margin: .5em 5em 1em 5em;
+  text-align: justify;
+}
+
+/* HERE ARE THE CHANGES THAT DAVID MADE 
+
+ {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+Clearfix (clear floats) 
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+David's changes end */
+
+
+video {
+/*  display: block;
+  border: 10px solid #231f20;
+  */
+  margin: 0 auto;
+  display: block;
+  border: 37.5px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 40px;
+}
+
+footer p {
+
+  margin: .5em 0 0 0;
+  font-family: gillSansMedium, Times, serif;
+  font-size: 20px;
+  color: #a8aaad;
+  text-align: center ;
+  background-color: #231f20;
+  height: auto;
+}
+
+
+.hero {
+  background-color: #231f20;
+  height: 600px;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 2em;
+  display: flex;
+
+}
+
+#heroText {
+  color: #a8aaad;
+  text-align: center;
+  font-size: 122px;
+  font-family: blackerDisplay, serif;
+  position: relative;
+  margin-top: auto ;
+  margin-bottom: auto;
+/*  text-shadow: 0 0 50px white;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;*/
+ }
+
+ /* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  box-sizing: border-box;
+  float: left;
+  width: 40%;
+  padding: 1em;
+  border: 30px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+  margin-left: 5em;
+  margin-bottom: 2em;
+}
+
+.column2 {
+  box-sizing: border-box;
+  float: right;
+  width: 40%;
+  padding: 1em;
+  border: 30px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+  margin-right: 5em;
+  margin-bottom: 2em;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+} 
+
+/*@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 1px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff, 0 0 70px #fff;
+  }
+  to {
+    text-shadow: 0 0 100px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff, 0 0 70px #fff, 0 0 80px #fff;
+  }
+}*/
+
+/*tablet size*/
+@media only screen and (max-width: 800px) {
+
+h2 {
+  font-size: 48px;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+#heroText {
+  font-size: 102px;
+}
+
+.hero div {
+    height: 200px;
+}
+
+.hero {
+  display: none;
+}
+
+.column {
+  box-sizing: border-box;
+  float: left;
+  width: 35%;
+  padding: 1em;
+  margin-left: 5em;
+  border: 15px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+    margin-top: 2em;
+}
+
+.column2 {
+  box-sizing: border-box;
+  width: 35%;
+  float: right;
+  padding: 1em;
+  margin-right: 5em;
+  border: 15px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+    margin-top: 2em;
+}
+
+}
+
+
+
+/*phone size */
+@media only screen and (max-width: 500px) {
+
+h2 {
+  font-size: 48px;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+.hero {
+  display: none;
+}
+
+
+p{
+  font-size: 20px;
+  text-align: center;
+}
+
+
+.column {
+  box-sizing: border-box;
+  float: left;
+  width: 35%;
+  padding: 1em;
+  margin-left: 5em;
+  border: 15px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+  margin-top: 2em;
+}
+
+.column2 {
+  box-sizing: border-box;
+  width: 35%;
+  float: right;
+  padding: 1em;
+  margin-right: 5em;
+  border: 15px solid transparent;
+  border-image: url(images/blackSpikedBg.png) 30%;
+  border-image-width: 50px;
+  margin-top: 2em;
+}
+
+}
+
+

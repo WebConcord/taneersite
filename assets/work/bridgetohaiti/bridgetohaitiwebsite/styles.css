@@ -1,0 +1,220 @@
+/* 
+   Comic Museum Home Season style sheet 
+   Filename: styles.css
+
+   Author:  Taneer Middleton 
+   Date:    2/13/2023
+   Style sheet for both index.html and ourmission.html
+ */
+ 
+ /* reset styles */
+html {
+	font-size: 12px;
+}
+article, body, div, footer, header, h1, h2, h3, ul, p, li, ol, img, ul,table, tbody, td, th, thead, tr, aside, video, figcaption {
+   border: 0;
+   padding: 0;
+   margin: 0;
+}
+ 
+/* body and page containter */
+
+body {
+	background-image: url("images/notebook2.jpg");
+	text-align: center;
+}
+
+.container {
+   max-width: 1060px;
+   min-height: 800px;
+   margin: 0 auto;
+   position: relative;
+   background: white;
+   background: linear-gradient(white, #F6F6FF) no-repeat;
+   border: 5px solid black;
+}
+
+ article, div, p {
+	font-family: "Segoe Print", serif;
+	font-size: 1.2em;
+	color: red;
+	}
+	
+#logo2 {
+	font-size: 75px;
+	padding-top: 25px;
+	padding-bottom: 50px;
+	font-family: impact, serif;
+}
+
+header, footer {
+	color: blue;
+	font-family: impact, serif;
+}
+
+li {
+	list-style-type: none;
+}
+.sitenavigation {
+	text-decoration: none;
+	list-style-type: none;
+	background-color: black;
+}
+
+.sitenavigation li {
+	display: inline-block;
+	padding-left: 5px;
+	font-family: impact, serif;
+	font-size: 2em;
+	float: center;
+	
+}
+
+.vocab {
+	text-align: left;
+	width: 40%;
+	font-size: 1.5em;
+	padding-bottom: 3em;
+	float: left;
+	padding-top: 7em;
+	padding-left: 4em;
+	
+}
+
+figure img  {
+	width: 30%;
+	float: right;
+}
+
+figure figcaption {
+	text-align: center;
+	clear: right;
+	width: 30%;
+	font-size: 1.5em;
+	padding-left: 25em;
+}
+.frames li {
+	display: inline-block;
+	border: 2px solid black;
+}
+
+p {
+	padding-bottom: 3em;
+}
+
+.link { 
+transition-duration: 0.3s;
+-webkit-transition: 0.3s;
+}
+
+.link:hover {
+ transform: scale(2);
+ -ms-transform: scale(2);
+-webkit-transform: scale(2);
+}
+
+.sitenavigation img {
+	padding-top: 10px;
+}
+
+.feedback-preview {
+   max-width: 400px;
+   padding: 10px;
+   margin: 0 auto;
+   border: 2px solid black;
+   font-size: 1.3em;
+   background-color: white;
+   display: none;
+}
+
+.eraser {
+  position: absolute;
+  width: 75px;
+  height: 50px;
+  background: pink;
+  border-radius: 20%;
+  top: 50px;
+  left: 950px;
+  z-index: 1;
+  animation-duration: .3s;
+  animation-timing-function: linear;
+  animation-name: shake-eraser;
+  animation-iteration-count: 999;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-name: shake-eraser;
+  -webkit-animation-iteration-count: 999;
+}
+
+.no-borderradius .eraser {
+	background: url("images/realeraser.png");
+	top: 50px;
+    left: 950px;
+	width: 75px;
+    height: 50px;
+	position: absolute;
+	z-index: 1;
+	animation-duration: .3s;
+    animation-timing-function: linear;
+    animation-name: shake-eraser;
+    animation-iteration-count: 999;
+	-webkit-animation-duration: .3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-name: shake-eraser;
+    -webkit-animation-iteration-count: 999;
+}
+.pencil {
+  position: absolute;
+  top: 15px;
+  left: 200px;
+  z-index: 1;
+  animation-duration: .3s;
+  animation-timing-function: linear;
+  animation-name: shake-eraser;
+  animation-iteration-count: 999;
+  -webkit-animation-duration: .3s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-name: shake-eraser;
+  -webkit-animation-iteration-count: 999;
+} 
+
+@keyframes shake-eraser {
+	0% {
+	transform: rotate(25deg);
+	}
+	50% {
+	transform: rotate(-25deg);
+	}
+	100% {
+	transform: rotate(25deg);
+	}
+}
+
+@-webkit-keyframes shake-eraser {
+	0% {
+	transform: rotate(25deg);
+	}
+	50% {
+	transform: rotate(-25deg);
+	}
+	100% {
+	transform: rotate(25deg);
+	}
+}
+
+footer {
+	background-color: black;
+	color: white;
+}
+
+a:link {
+	color: white;
+}
+
+a:visited {
+	color: green;
+}
+
+#logo1 {
+	float: left;
+}

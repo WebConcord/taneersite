@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sanders' Comic Conservation Museum</title>
+	 <!-- 
+         Comic Museum Home Page
+         Filename: index.html
+
+         Author: Taneer Middleton
+         Date:   2/13/2023
+		 Home webpage for Sanders' Comic Conservation Museum
+      -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<script src="modernizr.custom.40753.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Kanit&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles.css">
+		<a href="https://churchstmarketplace.com/earth-prime-comics" rel="location.html"></a>
+	</head>
+<body>
+<div class="container">
+
+<header>
+
+<h1 id="title"><a href="index.html"><img src="images/superherologo.gif" height="659" width="165"></a></h1> 
+
+<h2 id="quote1"> “By stripping down an image to its essential "meaning", an artist can amplify that meaning in a way that realistic art can't.” -Scott McCloud, Understanding Comics</h2>
+
+</header>
+<nav>
+<div class="navigation-menu-button">
+			<img src="images/menu.png" width="63" height="57" alt="Show navigation">
+</div>
+<ul class="sitenavigation">
+	<li><a href="index.html">Home</a></li>
+	<li><a href="ourmission.html">Our Mission</a></li>
+	<li><a href="https://churchstmarketplace.com/earth-prime-comics" target=”_blank”>Location</a></li>
+	<li><a href="review.html"> Review Us</a></li>
+</ul>
+</nav>
+<body>
+     <article id="contentstart">
+         <div class="container">
+            <h2>Your form has been submitted</h2>
+            <div class="results">
+               <h3>You entered the following data:</h3>
+         
+               <script>
+                   var formData = location.search;
+                   formData = formData.substring(1, formData.length);
+                   while (formData.indexOf("+") !== -1) {
+                      formData = formData.replace("+", " ");
+                   }
+                   formData = decodeURIComponent(formData);
+                   var formArray = formData.split("&");
+                   for (var i = 0; i < formArray.length; i = i + 1) {
+                      document.write("<p>" + formArray[i] + "</p>");
+                   }
+               </script>
+            </div>
+         </div>
+      </article>
+  <footer>
+	<h1> Truth, Justice, and the American Way &#9733; Burlington, VT &#9733;
+ (802-865-7188)  </h1>
+</footer>
+
+   </body>
+</html>

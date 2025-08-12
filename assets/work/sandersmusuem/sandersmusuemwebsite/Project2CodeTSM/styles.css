@@ -1,0 +1,420 @@
+/* 
+   Comic Museum Home Season style sheet 
+   Filename: styles.css
+
+   Author:  Taneer Middleton 
+   Date:    2/13/2023
+   Style sheet for both index.html and ourmission.html
+ */
+ 
+ /* reset styles */
+html {
+	font-size: 12px;
+}
+article, body, div, footer, header, h1, h2, h3, ul, p, li, ol, img, ul,table, tbody, td, th, thead, tr, aside {
+   border: 0;
+   padding: 0;
+   margin: 0;
+}
+ 
+/* body and page containter */
+
+body {
+	background-color: #7DA4CF;
+	text-align: center;
+}
+
+.container {
+   max-width: 1060px;
+   margin: 0 auto;
+   position: relative;
+   background-color: #FFFFFF;
+}
+p, li {
+	font: 1.6em;
+ }
+ 
+ article, div, p, li {
+ 	font-family: kanit, "Times New Roman",serif;
+ }
+
+/* header section */ 
+header {
+	text-align: center;
+} 
+
+header h1 {
+  padding-top: 0.4em;
+  padding-bottom: 0.2em;
+  background-color: #F51B2B;
+  max-width: 100%;
+  text-align: center;
+}
+
+header p {
+   padding: 0.4em 0 0.8em;
+}
+
+img {
+   max-width: 100%;
+   height: auto;
+   width: auto;
+}
+
+#quote1, #quote2, #quote3 {
+	background-color: #F51B2B;
+	color: #FDED28;
+}
+
+/* site navigation */
+
+ul.sitenavigation {
+	background-color: #017BC4;
+	text-align: center;
+}
+
+ul.sitenavigation li {
+	display: inline-block;
+	border: 4px #000000;
+	font-size: 1.6em;
+}
+
+ul.sitenavigation a:link {
+	display: inline-block;
+	padding: 0.2em 0.8em;
+	color: #f6d044;
+	text-decoration: none;
+}
+	
+ul.sitenavigation a:visited {
+	color: #eee;
+}
+
+ul.sitenavigation a:hover {
+	background-color: #FFFFFF;
+	color: #000000;
+
+}
+ul.sitenavigation a:active {
+	position: relative;
+	top: 0.2em;
+	left: 0.4em;
+	z-index: 2;
+	color: #000000;
+}
+
+
+/* main content*/ 
+article {
+	width: 60%;
+	background-color: #FFFFFF;
+	color: #000000;
+	float: left;
+}
+article h2 {
+   color: #98c03d;
+   font-size: 2.8em;
+   font-weight: normal;
+}
+ article li, article p {
+   margin: 0 1em 0.4em 1.4em;
+   color:#000000;
+   font-size: 1.6em;
+	list-style-type: none;
+}
+/* sidebar */
+
+aside {
+	width: 40%;
+	background-color: #FDED28;
+	padding-bottom: 23em;
+	float: right;
+}
+
+aside h2 {
+   padding: 0.4em;
+   font-size: 2.8em;
+   line-height: 0.8em;
+   font-weight: normal;
+}
+aside tr {
+   padding-left: 1.4em;
+ 	font-size: 1.6em;
+}
+
+aside table {
+   margin: 0 1em 0.4em 1.4em;
+}
+
+aside figcaption {
+	font-size: 1.6em;
+    margin: 0 1em 0.4em 1.4em;
+}
+
+/* form styles */
+
+legend {
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+.contactinfo label, .experienceinfo label, .exhibitinfo label {
+	margin-right: 3em;
+	margin-bottom: 3em;
+	font-size: 1.6em;
+}
+
+.contactinfo input, textarea {
+	border: 1px solid #ccc;
+	padding: 0.2em;
+	font-size: 1em;
+}
+
+select {
+	margin-bottom: 0.6em;
+}
+
+label input {
+	margin-bottom: 1.4em;
+}
+
+
+.schedule input {
+	position: absolute;
+	left: 5em;
+}
+
+
+/* label styles */
+
+label {
+	font-size: 1em;
+	line-height: 1.6em;
+}
+
+.contactinfo {
+	display: block;
+	position: relative;
+	margin: 0.8em 0;
+}
+
+#submit {
+	border: none;
+	padding: 0.4em 0.6em;
+	background-color: #e3d5ba;
+	font-size: 1.25em;
+	border-radius: 10px;
+}
+
+#results {
+	padding-right: 5em;
+}
+
+
+/* side bar table */
+
+th, td {
+	border: 1px solid black;
+}
+
+
+/* footer section */ 
+
+footer {
+	 background-color: #017BC4;
+	 clear: both;
+	 padding: 0.6em;
+     color: #FDED28;
+ }
+ 
+ footer p {
+	 margin: 0.4em;
+ }
+ 
+ /* print styles */
+@media print {
+   article, article h1,article h2, aside, body, .container, footer, header, header h1, header p, .quote, .quote2 {
+      color: #000000;
+      background-color: #FF0000;
+   }
+   article {
+      border-right: 1px #000000;
+	  max-width: 59%;
+   }
+   aside {
+	   max-width: 39%;
+   }
+   footer {
+      border-top: 1px #000000;
+   }
+   header {
+      border-bottom: 1px #000000;
+   }
+   ul {
+	   display: none;
+   }
+
+}
+/*smartphone size*/
+@media screen and (max-width: 480px) {
+
+	ul.sitenavigation {
+	border: 3px solid #34180f;
+	position: fixed;
+	right: 8%;
+	top: 35%;
+	z-index: 2;
+	width: 100px;
+	}
+	
+	.navigation-menu-button {
+		display: block;
+	}
+	
+	#paragraph1 {
+		display: none;
+	}
+	aside {
+		float: none;
+		width: 100%;
+	}
+	aside table {
+		float: none;
+		width: 90%;
+	}
+	article {
+	float: none;
+	width: 100%;
+	}
+		
+	.quote2, #burning {
+		display: none;
+	}
+		form {
+		width: 30%;
+	}
+	.contactinfo label {
+		text-align: left;
+	}
+	
+	#submit {
+		border-radius: 1px;
+	}
+	
+	#results {
+		padding-right: none;
+	}
+	.exhibitinfo label{
+		margin-right: 5em;
+	}
+		.sitenavigation ul {
+		border: none;
+		width: 100%;
+		display: block;
+		position: static;
+		text-align: center;
+	}
+	
+	.sitenavigation li {
+		display: inline-block;
+	}
+}
+
+/* tablet size */
+@media screen and (max-width: 880px) {
+	
+	ul.sitenavigation {
+	border: 3px solid #34180f;
+	position: fixed;
+	right: 8%;
+	top: 35%;
+	z-index: 2;
+	width: 100px;
+	}
+		
+		
+		header {
+	    float: none;
+		width: auto;
+}
+	.sitenavigation ul {
+		border: none;
+		width: 100%;
+		display: block;
+		position: static;
+		text-align: center;
+	}
+	
+	.sitenavigation li {
+		display: inline-block;
+	}
+	
+	.navigation-menu-button {
+		float: right;
+	}
+	aside {
+		float: none;
+		width: 100%;
+	}
+	aside table {
+		float: none;
+		width: 90%;
+	}
+	article {
+	float: none;
+	width: 100%;
+	}
+
+	form {
+		display: inline-block;
+		width: 60%;
+	}
+	
+	#submit {
+		border-radius: 1px;
+	}
+	
+	#results {
+		padding-right: none;
+	}
+	.exhibitinfo label{
+		margin-right: 5em;
+	}
+}
+
+/* standard desktop */
+
+@media screen and (min-width: 881px) {
+	.navigation-menu-button {
+		display: none;
+	}
+	
+	label {
+		margin-left: 4.8em;
+	}
+}
+
+
+/*large desktop */
+@media screen and (min-width: 881px) {
+	.navigation-menu-button {
+		display: none;
+	}
+	
+	.container {
+   max-width: 100%;
+   margin: 0 auto;
+   position: relative;
+   background-color: #FFFFFF;
+}
+	form {
+	margin: 3% 25% 3% 25%;
+	width: 50%
+	}
+	
+	table {
+		width: 90%;
+		height:
+	}
+}
+

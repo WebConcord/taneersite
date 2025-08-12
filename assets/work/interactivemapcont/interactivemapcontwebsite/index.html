@@ -1,0 +1,1112 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Taneer's Interactive Map</title>
+	 <!-- 
+		Purchase Interactive Map
+		Filename: index.html
+
+         Author: Taneer Middleton
+         Date:   5/5/2025
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script>document.write('<script src="http://' + (location.host || '${1:localhost}').split(':')[0] + ':${2:35729}/livereload.js?snipver=1"></' + 'script>')</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+<script src="JSON/broadviewJSON.js"></script>
+<script src="JSON/diningJSON.js"></script>
+<script src="JSON/studentServicesBuildingsJSON.js"></script>
+<script src="JSON/academicBuildingsJSON.js" ></script>
+<script src="JSON/hikingtrailsJSON.js"></script>
+<script src="JSON/loopshuttleJSON.js"></script>
+<script src="JSON/pedestrianTunnelsJSON.js"></script>
+<script src="JSON/parkinglots.js"></script>
+<script src="leaflet-sidebar/L.Control.Sidebar.js"></script>
+<link rel="stylesheet" href="leaflet-sidebar/L.Control.Sidebar.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<style>
+
+		@font-face {
+  font-family: Franklin Gothic Heavy;  /* Choose a unique name */
+  src: url('fonts/FRAHV.ttf') format('truetype'), /* WOFF2 is preferred */
+}
+
+		html {
+			font-size: 12px;
+		}
+		article, body, div, footer, header, h1, h2, h3, ul, p, li, ol, img, ul,table, tbody, td, th, thead, tr, aside {
+			border: 0;
+			padding: 0;
+			margin: 0;
+		}
+
+
+		.leaflet-top, .leaflet-bottom {
+			position: none ;
+			z-index: 999;
+}
+
+.leaflet-control {
+	border: 3px solid #000 !important;
+	background-color: #F1F0EA !important;
+
+}
+
+.leaflet-control-zoom-in, .leaflet-control-zoom-out, .search-input, .search-results {
+	background-color: #F1F0EA !important;
+
+}
+
+.leaflet-sidebar .close {
+	z-index: 2001 !important;
+	background: #D9D9D9;
+	color: black;
+}
+
+#sidebar{
+font-size: 1.1em;
+z-index: 2000;
+left: 0;  
+position: absolute;
+border: 3px solid #000 !important;
+background: #F1F0EA;
+padding: 0 !important;
+display: flex;
+flex-direction: column;
+align-items: center;
+background-image: url("assets/sidebar-background/backgroundimage.png");
+}
+
+#sidebar p, #sidebar h1 {
+	padding: 10px;
+}
+
+#sidebar h1 {
+width: 80%;
+}
+
+#sidebar-content {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 8px 24px;
+	font-size: 1.1em;
+	background: white;
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#sidebar-title {
+	color: #F1F0EA;
+	font-family: Franklin Gothic Heavy;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+#sidebar-image {
+	height: 187px;
+	margin: 20px 0 20px 0;
+	z-index: 2002;
+}
+
+#sidebar-header-div {
+	width: 100%;
+	flex-shrink: 0;
+	background-color: #000;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+	z-index: 2002 !important;
+	position: relative;
+	font-size: 24px;
+}
+
+#sidebar-body-div {
+	width: 90%;
+	margin-bottom: 20px;
+	background: #000;
+	color: #F1F0EA;
+	font-family: "Helvetica";
+	font-size: 12px ;
+	display: flex;
+	flex-direction: column;
+  justify-content: space-between;
+z-index: 2002 !important;
+}
+
+#sidebar-background, .background-shape{
+	z-index: 2000;
+	position: relative;
+	margin: 75 4 658 267;
+}
+
+/*overrriding vanilla sidebar api styling to make sidebar sit at top left*/
+
+.leaflet-sidebar {
+	padding: 0 !important;
+}
+
+button.leaflet-control {
+	padding: 0 !important;
+}
+
+#map { 
+
+	height: 100vh;
+	filter: contrast(100%);
+}
+
+.leaflet-left {
+	left: 0px;
+}
+
+.leaflet-bottom{
+}
+
+.gps-button {
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 30px;
+}
+
+#level-buttons {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#google-maps-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	display: none;
+	text-align: center;
+}
+
+#google-maps-button img {
+	width: 85px;
+	height: 85px;
+	flex-shrink: 0;
+}
+
+#sidebar-button-div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+}
+
+#taneer-signature {
+	font-family: "Yellowtail";
+	font-size: 2em;
+}
+
+.yellowtail-regular {
+	font-family: "Yellowtail", cursive;
+	font-weight: 400;
+	font-style: normal;
+}
+
+/*styling pop up for direction*/
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 3000; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+#directions-content {
+	margin: auto;
+	display: block;
+	width: 80%;
+	height: 80%;
+	max-width: 700px;
+	background-color: white;
+}
+
+.contributions-content {
+	margin: auto;
+	display: block;
+	width: 80%;
+	height: 80%;
+	max-width: 700px;
+	background: rgba(0, 0, 0, 0);
+	color: white;
+	text-align: center;
+}
+
+.contributions-content h1 {
+	color: #F1F0EA;
+	font-family: Franklin Gothic Heavy;
+	font-size: 24px;
+}
+
+.contributions-content p {
+	color: #F1F0EA;
+	font-family: "Helvetica";
+	font-size: 12px;
+}
+
+#contributions-button {
+	color: Black;
+	font-family: Franklin Gothic Heavy;
+	background: #F1F0EA;
+	font-size: 2em;
+	padding: 5px;
+	border-radius: 25px;
+
+}
+
+.close {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+/*changing the icon of the tile layers icon*/
+.leaflet-control-layers-toggle {
+	background-image: url(assets/icons/tiles.png) !important;
+	background-size: 26px 26px;
+}
+
+.leaflet-control-layers label {
+
+	font-size: 12px !important;
+}
+
+.leaflet-popup-content {
+	font-size: 12px !important;
+}
+
+
+@media only screen and (max-width: 500px) {
+
+	#sidebar {
+		height: 100%;
+		width: 100%;
+		font-size: 1.1em;
+		z-index: 2000; 
+		position: absolute;
+		left: 0; 
+		right: 0;
+		bottom: 0;
+
+	}
+
+	#sidebar-image {
+		height: 180px;
+	}
+}
+
+/*styling changes to parent div of #sidebar to move its position to match #sidebar elements*/
+
+</style>
+
+<div id="directions-modal" class="modal">
+
+	<!-- The Close Button -->
+	<span class="close">&times;</span>
+
+	<!-- Modal Content (The Image) -->
+		<iframe id="directions-content" src="" width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</iframe>
+
+</div>
+
+<div id="contributions-modal" class="modal">
+
+	<!-- The Close Button -->
+	<span class="close">&times;</span>
+
+	<!-- Modal Content (The Image) -->
+	<div class="contributions-content">
+		<h1> THANK YOU... </h1>
+	</br></br>
+	<p> All 67 respondents of the Purchase Interactive Map Survey
+	</br></br>
+	David Wilson, for always believing in me, especially when I didn't believe in myself
+</br></br>
+Christopher Raetz, for giving pointers throughout this project
+</br></br>
+Robyn Graygor and Nellie Duggin-Haas, for working with me to add the hiking trails to the map
+</br></br>
+Jason B. Berry, for letting me use his drawing of my handsome face
+</br></br>
+Micheal Kopas and Sean Connolly, for supplying me with document and information on the pedestrian tunnels
+</br></br>
+Tobias Bieniek, for the use of their sidebar plugin
+</br></br>
+Sir Trousers, my beloved FigPal
+</p>
+
+</div>
+</div>
+
+<div id="map">
+	<div id="sidebar">
+
+		<div id="sidebar-header-div">
+			<h1 id="sidebar-title">Hey There!</h1>
+		</div>
+		<img src="assets/icons/taneerface.png" alt="picture here!" id="sidebar-image">
+		<div id="sidebar-body-div">
+			<p id="sidebar-body"> Feel free to tap anywhere on the screen to access the features of the map. The button with the crosshairs is a live GPS feature. If you don't have location permissions enabled on your device, this feature will not be able to work. When you’re done with the map, please refresh this page and delete any extra tabs for the next person.<br/><br/>Thank you much so for checking out my senior project!<br/><br/>Sincerely,<br/>Taneer Middleton
+			</p>
+			<div id="sidebar-button-div">
+				<div id="google-maps-button">
+					<img src="assets/icons/googlemapsbutton.png"> 
+					<h1> Directions</h1>
+				</div>
+				<div>
+					<!-- <h1 id="taneer-signature">Taneer Middleton </h1> -->
+					<button id="contributions-button" onclick="showContributions()"> SEE CONTRIBUTORS </button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+	 <!-- START OF JAVASCRIPT -->
+	 
+	 <script> 
+
+	 	var map = L.map('map').setView([41.049169, -73.702640], 15);
+
+
+	 	var topo = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	 		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	 	});
+
+	 	let dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+	 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	 		subdomains: 'abcd',
+	 		maxZoom: 20
+	 	});
+
+	 	var light = L.tileLayer('https://tile.openstreetmap.bzh/ca/{z}/{x}/{y}.png', {
+	 		maxZoom: 19,
+	 		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="https://www.openstreetmap.cat" target="_blank">Breton OpenStreetMap Team</a>'
+	 	}).addTo(map);
+
+	 	let sidebarTitle =  document.getElementById('sidebar-title')
+
+	 	let taneerSignature = document.getElementById('taneer-signature')
+
+	 	let sidebarImage = document.getElementById('sidebar-image')
+
+	 	let sidebarBody = document.getElementById('sidebar-body')
+
+	 	//Icons variables 
+
+	 	var clocktowerIcon = L.icon({
+	 		iconUrl: 'assets/icons/clocktower-icon.png',
+    iconSize:     [50,80], // size of the icon
+    iconAnchor:   [25, 40], // point of the icon which will correspond to marker's location
+});
+
+	 	var tunnelDoubleDoors = L.icon({
+	 		iconUrl: 'assets/icons/tunnel-double-doors.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 	var tunnelEntrance = L.icon({
+	 		iconUrl: 'assets/icons/tunnel-entrance.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 	var tunnelShutterDoor = L.icon({
+	 		iconUrl: 'assets/icons/tunnel-shutter-door.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+
+	 	var tunnelStairs = L.icon({
+	 		iconUrl: 'assets/icons/tunnel-stairs.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 	var busStopIcon = L.icon({
+	 		iconUrl: 'assets/icons/bus-stop-icon.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+	 		 	var parkingKioskIcon = L.icon({
+	 		iconUrl: 'assets/icons/parking-kiosk.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 	let userLocation
+	 	let userLocationAccuracy
+
+	 	 	var parkingLots = L.layerGroup([westOneParking, westTwoParking, westThreeParking, centralFiveParking,centralFourParking, centralThreeParking, centralTwoParking, centralOneParking, eastSevenParking, eastSixParking, eastFiveParking, eastFourParking, eastThreeParking, eastTwoParking, eastOneParking])
+
+	 	 	var parkingLotsAndMarker = L.layerGroup([parkingLots, L.marker([41.047697025814976, -73.70499545046002],{icon: parkingKioskIcon}).bindPopup("<img height=150 width=150 src='assets/images/parking-kiosk.png'> <h1> Pay Station</h1>")])
+
+
+	 	let vaShow2025 = L.circle([41.04737381975663, -73.7033804512683], {radius:75, fillOpacity: 0.6, color : "black"}).on('click', function(e){
+	 		sidebarTitle.innerHTML = "What's Next?: 2025 Senior Thesis Show"
+	 		sidebarImage.src =  "assets/images/whatnowimage.jpg"
+	 		sidebarBody.innerHTML = "<p> The annual showcase of BFA and BSVA graduating students in the School of Art+Design, located in the Richard and Dolly Maass Gallery and throughout the Visual Arts building. </p><h1> Show Dates: </h1><p> May 7th to 14th</p><h1> Opening Reception:</h1><p>May 10th, 1:00 - 3:00 PM</p>"
+
+
+	 		sidebar.show();
+	 			 				googleMapsButton.style.display = "none";
+	 				contributionsButton.style.display = "none";
+	 	})
+
+
+	 	let colors = ["#F29B44","#A870D5","#23417D"]
+
+    // 5. Every N milliseconds, update the circle’s fillColor
+	 	let idx = 0;
+	 	setInterval(() => {
+	 		idx = (idx + 1) % colors.length;
+	 		vaShow2025.setStyle({ fillColor: colors[idx] });
+    }, 250); 
+
+//establish all buildings on campus with variables, collection their geoJSON data, alongside an onclick function that changes the sidebar's content accoring to the building
+
+	 	let pacBuilding = L.geoJSON(pacJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "The Performing Arts Center (The PAC)"
+	 		sidebarImage.src =  "assets/images/pacimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The Performing Arts Center (The PAC) is a four-theatre complex located on Purchase College’s campus. The major professional, non-profit arts presenter in the Southeastern New York–Southwestern Connecticut region, The PAC presents a broad range of performances that engage, challenge, and educate as well as entertain, offering music, dance, theatre, family programming, comedy, and film.</p><p><a href='https://www.artscenter.org/' target='_blank'>Learn more about The Performing Arts Center.</a></p>"
+	 		sidebar.show();
+	 		googleMapsButton.style.display = "block";
+	 		contributionsButton.style.display = "none";
+directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.9341034102135!2d-73.70780532345223!3d41.04857011694221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c297b55d3823a7%3A0x8ddf4b224f2b50bd!2sThe%20Performing%20Arts%20Center%2C%20Purchase%20College!5e0!3m2!1sen!2sus!4v1745981372716!5m2!1sen!2sus"
+	 	})
+
+	 	let vaBuilding = L.geoJSON(vaBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Visual Arts Building (The VA)"
+	 		sidebarImage.src =  "assets/images/vaimage.jpg"
+	 		sidebarBody.innerHTML = "<p>This 160,000 square foot building is home to the School of Art+Design. Its comprehensive and extensive spaces support work in both traditional and new art media, including: seven computer labs, 26 semi-private darkrooms, two 15-station darkrooms, wood, metal, clay, and finishing sculpture shops, four printmaking studios, numerous drawing and painting studios, offset printing and letterpress shops, and several multi-purpose studios and classrooms.</p><p><a href='https://www.purchase.edu/academics/art-and-design' target='_blank'>Learn more about the School of Art and design.</a></p>"
+	 		sidebar.show();
+	 		googleMapsButton.style.display = "block";
+	 		contributionsButton.style.display = "none";
+	 			directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1504.494136747976!2d-73.70428587230437!3d41.0473855267775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2964b01d91f03%3A0x1ed43ef8f20309b6!2sVisual%20Arts%20Building%2C%20Lincoln%20Ave%2C%20Purchase%2C%20NY%2010577!5e0!3m2!1sen!2sus!4v1745981312583!5m2!1sen!2sus"
+	 	})
+
+	 		 	let danceBuilding = L.geoJSON(danceBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Dance Building"
+	 		sidebarImage.src =  "assets/images/danceimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The first academic building in the United States built specifically for the training and performance of dance. Twelve specifically designed studios serve as the training ground for Purchase College’s future dancers, choreographers, and actors.</p><p><a href='https://www.purchase.edu/academics/dance' target='_blank'>Learn more about the Conservatory of Dance.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d894.5441025730956!2d-73.70504963107325!3d41.04984688771324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c296357f558bb9%3A0x38c1bd4c0ce71c9!2sPurchase%20College%2C%20SUNY%20Conservatory%20of%20Dance!5e0!3m2!1sen!2sus!4v1745981224818!5m2!1sen!2sus"
+
+	 	})
+
+ 		 	let musicBuilding = L.geoJSON(musicBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Music Building"
+	 		sidebarImage.src =  "assets/images/musicimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The <a href='https://www.purchase.edu/academics/music/' target= '_blank'>Conservatory of Music</a> provides 70 private practice rooms, eight recording studios, and two performance venues: the Recital Hall and the Choral Hall, for students to develop their social and instrumental talents.</p><p>Also housed in this building is the <a href='https://www.purchase.edu/academics/school-of-film-and-media-studies/' target= '_blank'>School of Film and Media Studies</a>, which makes use of an extensively equipped sound stage on the lower level.<p>The <a href='https://www.purchase.edu/academics/school-of-continuing-education/' target= '_blank'>School of Continuing Education</a>, located on the lower level, is home to Purchase's adult degree program and non-credit courses and programs.</p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 			directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d752.2194250676496!2d-73.70567443035736!3d41.04980350958863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2964a7360c4db%3A0xb976e0fae8fd04e0!2sMusic%20Building%2C%20Brigid%20Flanagan%20Drive%2C%20Purchase%2C%20NY%2010577!5e0!3m2!1sen!2sus!4v1745981177230!5m2!1sen!2sus' width='450' height='450' style='border:0;'' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>"
+
+	 	})
+
+ 		let naturalScienceBuilding = L.geoJSON(naturalScienceBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Natural Sciences Building"
+	 		sidebarImage.src =  "assets/images/naturalscienceimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The Natural Sciences Building was specifically designed by the world-famous architect Paul Rudolf for intensive faculty-student research collaboration. Laboratories are located in the center of each floor with faculty offices and classrooms directly across from them. The building houses electron microscopes, fluorescence light microscopes, radioactivity counters, tissue culture facilities, molecular biology facilities, ultracentrifuges, assorted analytical instruments, environmental chambers, a new media laboratory, and near-cognitive psychological laboratories.</p> <p><a href= 'https://www.purchase.edu/academics/school-of-natural-social-sciences/' target= '_blank'>Learn more about the School of Natural and Social Sciences.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 			directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d752.21847564445!2d-73.70375901939832!3d41.049886554337554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2964a7f8f6b3f%3A0x966c0d2a50cf37ad!2sSchool%20of%20Natural%20and%20Social%20Sciences!5e0!3m2!1sen!2sus!4v1745981127021!5m2!1sen!2sus"
+
+	 	})
+
+	 	 		let socialScienceBuilding = L.geoJSON(socialScienceBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Social Science Building"
+	 		sidebarImage.src =  "assets/images/socialscienceimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The first floor has faculty offices and is used primarily by <a href= 'https://www.purchase.edu/academics/school-of-natural-social-sciences/' target= '_blank'>Social Science</a> faculty for classes and lectures. The lower level contains <a href= 'https://www.purchase.edu/offices/cts/' target= '_blank'>Campus Technology Services (CTS)</a>, which provides assistance and support for most technology issues that students, faculty, and staff may encounter.</p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 			directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1504.4359872562843!2d-73.70436786106447!3d41.04992871559202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c296357d76b903%3A0x1e9fba7824b9749b!2sSocial%20Sciences!5e0!3m2!1sen!2sus!4v1745981074197!5m2!1sen!2sus"
+
+	 	})
+
+
+	 	 		let cmftBuilding = L.geoJSON(cmftBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Center For Media, Film, And Theatre Building (CMFT)"
+	 		sidebarImage.src =  "assets/images/cmftimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The Center for Media, Film and, Theatre (CMFT) Building, opened in August 2019, is a new center for the Conservatory of Theatre Arts, the School of Film and Media Studies, and related arts programs.</p> <p><a href= 'https://www.purchase.edu/live/news/553-center-for-media-film-and-theatre' target= '_blank'>Learn more about the Center for Media, Film, and Theatre Building.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 			directionsContent.src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d752.2316728548044!2d-73.70492226424537!3d41.04873220000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1746277474857!5m2!1sen!2sus%22"
+	 	})
+
+ 	 		let humanitiesBuilding = L.geoJSON(humanitiesBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Durst Family Humanities Building"
+	 		sidebarImage.src =  "assets/images/humanitiesimage.jpg"
+	 		sidebarBody.innerHTML = "<p>Home to the School of Humanities and named for Royal and Shirley Durst, philanthropists who support research and scholarship in the humanities, this building offers a variety of classroom spaces and houses the <a href= 'https://www.purchase.edu/counseling-and-behavioral-health-services/' target= '_blank'>Counseling Center.</a></p> <p><a href= 'https://www.purchase.edu/academics/school-of-humanities/' target= '_blank'>Learn more about the School of Humanities.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 		directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1789.1316850034596!2d-73.70400071546624!3d41.04824784562115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2964ae905a0e1%3A0x61236d77285497b9!2sHumanities%20Building%2C%20Lincoln%20Ave%2C%20Purchase%2C%20NY%2010577!5e0!3m2!1sen!2sus!4v1745980920753!5m2!1sen!2sus"
+
+	 	})
+
+ 	 		 	 		let libraryBuilding = L.geoJSON(libraryBuildingJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Library"
+	 		sidebarImage.src =  "assets/images/libraryimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The mission of the <a href= 'https://www.purchase.edu/library/' target= '_blank'>Purchase College Library</a> is to support the teaching, learning, and research activities of the college’s students, faculty, staff, and the surrounding community.The Library also houses the Teaching, Learning, and Technology Center.</p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 		directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.9104154020683!2d-73.70540892345218!3d41.04908811691019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c297b55d3823a7%3A0x2261ed46e51115f9!2sPurchase%20College%2C%20SUNY%20Library!5e0!3m2!1sen!2sus!4v1745980880691!5m2!1sen!2sus'"
+	 	})
+
+ 	 		 	 		let dHall = L.geoJSON(dHallJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Dining Hall (D-Hall)"
+	 		sidebarImage.src =  "assets/images/dhallimage.jpg"
+	 		sidebarBody.innerHTML = "<p> Purchase College’s all-you-care-to-eat dining facility!</p> <p><a href='https://www.purchase.edu/about/our-campus/interactive-map/' target='_blank'> Learn more about dining at Purchase College.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.940313468958!2d-73.70265392345213!3d41.04843431695058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c297b548ea6b71%3A0xe2e2890797e62f25!2sDining%20Hall!5e0!3m2!1sen!2sus!4v1745980795277!5m2!1sen!2sus"
+	 				
+	 	})
+
+	 		 	 		let einsteins = L.geoJSON(einsteinsJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Einstein Bros. Bagels"
+	 		sidebarImage.src =  "assets/images/einsteinslogo.png"
+	 		sidebarBody.innerHTML = ""
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d188.057496009614!2d-73.7038563180394!3d41.04887992153291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1745980720257!5m2!1sen!2sus"
+	 	})
+
+	 		 	 		let theMarket = L.geoJSON(theMarketJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "The Market (Convenience Store)"
+	 		sidebarImage.src =  "assets/images/marketimage.jpg"
+	 		sidebarBody.innerHTML = "<p>Located in Campus Center South (CCS), The Market is Purchase College’s convenience store.</p><p><a href='https://www.purchase.edu/campus-life/dining/' target='_blank'>Learn more about dining at Purchase College</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d188.0583168893179!2d-73.7015339501719!3d41.04859271024953!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1745980571881!5m2!1sen!2sus"
+	 	})
+
+
+	 		 	 		let starbucks = L.geoJSON(starbucksJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Starbucks"
+	 		sidebarImage.src =  "assets/images/starbucksimage.jpg"
+	 		sidebarBody.innerHTML = "<p>Located in Fort Awesome, Starbucks is a Seattle-based coffee chain with fair trade coffee.</p> <p><a href='https://www.purchase.edu/campus-life/dining/' target= '_blank'>Learn more about dining at Purchase College.</a></p>"
+	 		sidebar.show();
+		 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 					directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.020117798686!2d-73.70559170973875!3d41.04668914318446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c29652fb945873%3A0x310c3d9ba6ae1dc3!2sStarbucks!5e0!3m2!1sen!2sus!4v1745980467478!5m2!1sen!2sus"
+	 	})
+
+ 		 	 		let theHub = L.geoJSON(theHubJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "The Hub (Food Court)"
+	 		sidebarImage.src =  "assets/images/hubimage.jpg"
+	 		sidebarBody.innerHTML = "<p>Located in Campus Center North (CCN), The Hub is Purchase College’s food court.</p><p><a href='https://www.purchase.edu/campus-life/dining/' target='_blank'>Learn more about dining at Purchase College.</a></p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1265.0672484866202!2d-73.70291669905542!3d41.05032295195413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c29635669bf48b%3A0xc621f48ced4098df!2sThe%20Hub!5e0!3m2!1sen!2sus!4v1745980020736!5m2!1sen!2sus"
+	 	})
+
+		 	 		let campusCenterNorth = L.geoJSON(campusCenterNorthJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Campus Center North (CCN)"
+	 		sidebarImage.src =  "assets/images/ccnimage.jpg"
+	 		sidebarBody.innerHTML = "<p>Campus Center North (CCN) houses various student services, including:</p> <p><a href= 'https://www.purchase.edu/offices/living-on-campus/' target= '_blank'>Community Engagement</p><p><a href = 'https://www.purchase.edu/offices/student-involvement/commuter-students/' target= '_blank' >Commuter Lounge</p> <p><a href= 'https://www.purchase.edu/campus-life/dining/' target= '_blank'>The Hub (Food Court)</p> <p><a href='https://www.purchase.edu/offices/more-card/' target= '_blank'>More Card Office</p> <p><a href='https://www.purchase.edu/offices/parking-and-transportation/parking/' target= '_blank'>Parking and Transportation</p><p><a href='https://www.purchase.edu/offices/purchase-student-government-association/' target= '_blank'>Purchase Student Government Association (PSGA)</p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 		directionsContent.src =	"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d752.2135201776412!2d-73.70291118596388!3d41.05032000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2963566476ff7%3A0x7fe5566d4893105e!2sCampus%20Center%20North%2C%20Lincoln%20Ave%2C%20Purchase%2C%20NY%2010577!5e0!3m2!1sen!2sus!4v1746277561672!5m2!1sen!2sus" 
+	 	})
+
+		 	 		let campusCenterSouth = L.geoJSON(campusCenterSouthJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Campus Center South (CCS)"
+	 		sidebarImage.src =  "assets/images/noimage.png"
+	 		sidebarBody.innerHTML = ""
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d752.2336182347541!2d-73.70211387540961!3d41.04856203619029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2964ab91f092f%3A0x9abc8d6e3f933309!2sCampus%20Center%20South!5e0!3m2!1sen!2sus!4v1746278345957!5m2!1sen!2sus" 
+	 	})
+
+		 	 		let studentServices = L.geoJSON(studentServicesJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Student Services Building"
+	 		sidebarImage.src =  "assets/images/socialscienceimage.jpg"
+	 		sidebarBody.innerHTML = "<p>This 50,000 square foot building boasts a two-story atrium, a multimedia presentation area, and is designed to create a new center of activity for outdoor and academic events. The building houses:</p</br></br><p><a href= 'https://www.purchase.edu/offices/advising-center/' target= '_blank'>Advising Center</p><p><a href= https://www.purchase.edu/offices/career-development/ target= '_blank'>Career Development Center</p><p><a href= 'https://www.purchase.edu/offices/community-standards/' target= '_blank'>Community Standards</p><p><a href= 'https://www.purchase.edu/offices/conference-planning/' target= '_blank'>Conference Planning/Rentals</p><p><a href= 'https://www.purchase.edu/offices/disability-resources/' target= '_blank'>Disability Resources</p><p><a href= 'https://www.purchase.edu/about/diversity-and-compliance/' target= '_blank'>Diversity and Compliance</p><p><a href= 'https://www.purchase.edu/offices/eopmap/' target= '_blank'>EOP/MAP</p><p><a href= 'https://www.purchase.edu/offices/global-education/' target= '_blank'>Global Education</p><p><a href= 'https://www.purchase.edu/offices/institutional-research/' target= '_blank'>Instiutional Research</p><p><a href= 'https://www.purchase.edu/offices/ombudsman/' target= '_blank'>Ombudsman</p><p><a href= 'https://www.purchase.edu/offices/president/' target= '_blank'>President's Office</p><p><a href= 'https://www.purchase.edu/offices/provost/' target= '_blank'>Provost's Office</p><p><a href= 'https://www.purchase.edu/offices/registrar/' target= '_blank'>Registrar</p><p><a href= 'https://www.purchase.edu/offices/student-affairs-and-enrollment-management/' target= '_blank'>Student Affairs and Enrollment Management</p><p><a href= 'https://www.purchase.edu/offices/student-financial-services/' target= '_blank'>Student Financial Services</p><p><a href= 'https://www.purchase.edu/offices/student-success/' target= '_blank'>Student Success</p><p><a href= 'https://www.purchase.edu/offices/testing-center/' target= '_blank'>Testing Center</p>"
+	 		sidebar.show();
+	 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+
+	 					directionsContent.src = "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d265.95175459271496!2d-73.7021320101015!3d41.04930218051437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDAyJzU3LjUiTiA3M8KwNDInMDcuMSJX!5e0!3m2!1sen!2sus!4v1746277666137!5m2!1sen!2sus"
+})
+
+	 	var academicBuildings  = L.layerGroup([vaBuilding, danceBuilding, musicBuilding, naturalScienceBuilding, socialScienceBuilding, naturalScienceBuilding,cmftBuilding, humanitiesBuilding, libraryBuilding]);
+
+	 	var diningBuildings = L.layerGroup([starbucks,dHall,einsteins,theMarket,theHub])
+
+
+	 	var studentServicesBuildings = L.layerGroup([studentServices,campusCenterNorth,campusCenterSouth])
+
+	 	let broadviewApartmentsClubhouse = L.geoJSON(broadviewApartmentsClubhouseJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "Broadview Apartments and Learning Commons"
+	 		sidebarImage.src =  "assets/images/broadviewapartmentsimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The main housing for those living at Broadview. Apartments are split between East and West wings. Also housed here is the <a href='https://www.broadviewseniorliving.org/lifelong-learning/' target='_blank'>Learning Commons</a>, a space meant to integrate resident with Purchase students and encourage intergenerational learning.</p>"
+	 		sidebar.show();
+	 			 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 				directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.1705453421746!2d-73.70420017146616!3d41.04339940375126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c297b20ec7f991%3A0xb385777adf0efd53!2sBroadview%20Senior%20Living%20at%20Purchase%20College!5e0!3m2!1sen!2sus!4v1746277917272!5m2!1sen!2sus"
+	 	})
+
+	 	let events =  L.layerGroup([vaShow2025])
+
+	 	var layerStyle = {
+	 		'default': {
+	 			'color': 'black',
+	 			'weight': 2,
+	 			'fillColor': 'white',
+	 			'fillOpacity': 1,
+
+	 		},
+	 		'highlighted': {
+	 			'color': 'black',
+	 			'weight': 2,
+	 			'fillOpacity': 0.5,
+
+	 		},
+	 		'selection': {
+	 			'color': 'black',
+	 			'weight': 2,
+	 			'fillColor': 'black',
+
+	 			'fillOpacity': 1,
+	 		}
+	 	}
+
+//function that dynamically changes styles of layers, created with help from chatgpt and a youtube video 
+	 	academicBuildings.eachLayer(function(layer) {
+    // Set the styling of all layers to default on initialization
+	 		layer.setStyle(layerStyle.default);
+    layer.isSelected = false; // Custom property to track selection
+
+    layer.on('click', function() {
+        // Reset all layers to default and deselect
+    	academicBuildings.eachLayer(layer => {
+    		layer.setStyle(layerStyle.default);
+    		layer.isSelected = false;
+    	});
+        // Set clicked layer to selection style
+    	layer.setStyle(layerStyle.selection);
+    	layer.isSelected = true;
+    });
+
+    layer.on('mouseover', function() {
+    	if (!layer.isSelected) {
+    		layer.setStyle(layerStyle.highlighted);
+    	}
+
+    	layer.once('mouseout', function() {
+    		if (!layer.isSelected) {
+    			layer.setStyle(layerStyle.default);
+    		}
+    	});
+    });
+});
+
+	 	//function that dynamically changes styles of layers, created with help from chatgpt and a youtube video 
+	 	parkingLots.eachLayer(function(layer) {
+    // Set the styling of all layers to default on initialization
+	 		layer.setStyle(layerStyle.default);
+    layer.isSelected = false; // Custom property to track selection
+
+    layer.on('click', function() {
+        // Reset all layers to default and deselect
+    	parkingLots.eachLayer(layer => {
+    		layer.setStyle(layerStyle.default);
+    		layer.isSelected = false;
+    	});
+        // Set clicked layer to selection style
+    	layer.setStyle(layerStyle.selection);
+    	layer.isSelected = true;
+    });
+
+    layer.on('mouseover', function() {
+    	if (!layer.isSelected) {
+    		layer.setStyle(layerStyle.highlighted);
+    	}
+
+    	layer.once('mouseout', function() {
+    		if (!layer.isSelected) {
+    			layer.setStyle(layerStyle.default);
+    		}
+    	});
+    });
+});
+
+	 	 	diningBuildings.eachLayer(function(layer) {
+    // Set the styling of all layers to default on initialization
+	 		layer.setStyle(layerStyle.default);
+    layer.isSelected = false; // Custom property to track selection
+
+    layer.on('click', function() {
+        // Reset all layers to default and deselect
+    	diningBuildings.eachLayer(layer => {
+    		layer.setStyle(layerStyle.default);
+    		layer.isSelected = false;
+    	});
+        // Set clicked layer to selection style
+    	layer.setStyle(layerStyle.selection);
+    	layer.isSelected = true;
+    });
+
+    layer.on('mouseover', function() {
+    	if (!layer.isSelected) {
+    		layer.setStyle(layerStyle.highlighted);
+    	}
+
+    	layer.once('mouseout', function() {
+    		if (!layer.isSelected) {
+    			layer.setStyle(layerStyle.default);
+    		}
+    	});
+    });
+});
+
+	 	 	 	 	studentServicesBuildings.eachLayer(function(layer) {
+    // Set the styling of all layers to default on initialization
+	 		layer.setStyle(layerStyle.default);
+    layer.isSelected = false; // Custom property to track selection
+
+    layer.on('click', function() {
+        // Reset all layers to default and deselect
+    	studentServicesBuildings.eachLayer(layer => {
+    		layer.setStyle(layerStyle.default);
+    		layer.isSelected = false;
+    	});
+        // Set clicked layer to selection style
+    	layer.setStyle(layerStyle.selection);
+    	layer.isSelected = true;
+    });
+
+    layer.on('mouseover', function() {
+    	if (!layer.isSelected) {
+    		layer.setStyle(layerStyle.highlighted);
+    	}
+
+    	layer.once('mouseout', function() {
+    		if (!layer.isSelected) {
+    			layer.setStyle(layerStyle.default);
+    		}
+    	});
+    });
+});
+
+	 	let theVillas = L.geoJSON(theVillasJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "The Villas"
+ 		sidebarImage.src =  "assets/images/villasimage.jpg"
+	 		sidebarBody.innerHTML = "<p>A remote living community in Broadview with 46 homes.</p> <p><a href='https://www.broadviewseniorliving.org/villas/' target='_blank'>Learn more about the Villas<a/></p>"
+	 			 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 		sidebar.show();
+
+	 		directionsContent.src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3215.81616383688!2d-73.70050419093175!3d41.04149311341982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1746277837430!5m2!1sen!2sus"
+	 	})
+
+	 	let assistedLivingAndMemoryCare = L.geoJSON(assistedLivingAndMemoryCareJSON).on('click', function(e){
+	 		sidebarTitle.innerHTML = "High Point Center for Care "
+ 		sidebarImage.src =  "assets/images/assistedlivingimage.jpg"
+	 		sidebarBody.innerHTML = "<p>The High Point Center for Care offers Broadview residents a safe, comfortable, environment that supports varying levels of care, allowing them to age in place while still enjoying the same comforts, amenities, and activities as the Broadview community – including Assisted Living, Enhanced Assisted Living, and Memory Care.</p> <p><a href='https://www.broadviewseniorliving.org/high-point/' target='_blank'>Learn more about the High Point Center for Care </a></p>"
+	 			 				googleMapsButton.style.display = "block";
+	 				contributionsButton.style.display = "none";
+	 		sidebar.show();
+
+	 		directionsContent.src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1063.8769441180416!2d-73.70415059891151!3d41.04497706206885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1746277779866!5m2!1sen!2sus"
+	 	})
+
+	 	var broadviewBuildings  = L.layerGroup([broadviewApartmentsClubhouse,theVillas,assistedLivingAndMemoryCare]);
+
+	 	 	 	 	broadviewBuildings.eachLayer(function(layer) {
+    // Set the styling of all layers to default on initialization
+	 		layer.setStyle(layerStyle.default);
+    layer.isSelected = false; // Custom property to track selection
+
+    layer.on('click', function() {
+        // Reset all layers to default and deselect
+    	broadviewBuildings.eachLayer(layer => {
+    		layer.setStyle(layerStyle.default);
+    		layer.isSelected = false;
+    	});
+        // Set clicked layer to selection style
+    	layer.setStyle(layerStyle.selection);
+    	layer.isSelected = true;
+    });
+
+    layer.on('mouseover', function() {
+    	if (!layer.isSelected) {
+    		layer.setStyle(layerStyle.highlighted);
+    	}
+
+    	layer.once('mouseout', function() {
+    		if (!layer.isSelected) {
+    			layer.setStyle(layerStyle.default);
+    		}
+    	});
+    });
+});
+
+	 	let whitePlainsLoop = L.layerGroup([L.geoJSON(whitePlainsLoopJSON, {color: '#AC4FC6'}), L.marker([41.04905, -73.69858], {icon: busStopIcon}).bindPopup('Resident Hall'), L.marker([41.05086, -73.70312], {icon: busStopIcon}).bindPopup('Campus Center North'), L.marker([41.04751, -73.70171], {icon: busStopIcon}).bindPopup('Campus Center South'), L.marker([41.032595, -73.759739], {icon: busStopIcon}).bindPopup('White Plains Diner'), L.marker([41.033456, -73.773607], {icon: busStopIcon}).bindPopup('Metro North'), L.marker([41.032046, -73.770642], {icon: busStopIcon}).bindPopup('Galleria'), L.marker([41.031112, -73.766225], {icon: busStopIcon}).bindPopup('Mamaroneck Avenue'), L.marker([41.03198117710241, -73.75974740008108], {icon: busStopIcon}).bindPopup('Westchester Mall')])
+
+
+	 	let portChesterLoop = L.layerGroup([L.geoJSON(portChesterLoopJSON, {color: '#AC4FC6'}), L.marker([41.04905, -73.69858], {icon: busStopIcon}).bindPopup('Resident Hall'), L.marker([41.05086, -73.70312], {icon: busStopIcon}).bindPopup('Campus Center North'), L.marker([41.04751, -73.70171], {icon: busStopIcon}).bindPopup('Campus Center South'), L.marker([41.002043, -73.663960], {icon: busStopIcon}).bindPopup('Metro North')])
+
+
+	 	var pedestrianTunnels = L.layerGroup([L.geoJSON(tunnelsJSON, {color:'#AC4FC6'}), L.marker([41.048113, -73.704614
+	 	], {icon: tunnelDoubleDoors}), L.marker([41.049178, -73.705062], {icon: tunnelShutterDoor}), L.marker([41.0497764122282, -73.70263109869151], {icon: tunnelEntrance}), L.marker([41.048706, -73.702130],{icon: tunnelEntrance}), L.marker([41.048990, -73.702120], {icon: tunnelStairs})]);
+
+
+	 		 	var vendingMachineIcon = L.icon({
+	 		iconUrl: 'assets/icons/vending-machine.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 		 	var microwaveIcon = L.icon({
+	 		iconUrl: 'assets/icons/microwave.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+});
+
+	 	let microwaves = L.layerGroup([L.marker([41.0467778, -73.7005278], {icon: microwaveIcon}).bindPopup('Microwave at Starbucks Entrance'),L.marker([41.0485556, -73.7017222], {icon: microwaveIcon}).bindPopup('Microwave inside of dining area in The Market'), L.marker([41.0499444, -73.704556], {icon: microwaveIcon}).bindPopup('Microwave inside Student Lounge (Room 0038)'), L.marker([41.0498333, -73.703917], {icon: microwaveIcon}).bindPopup('Microwave inside Faculty Conference Room (Room 2002)'), L.marker([41.0499444, -73.702111], {icon: microwaveIcon}).bindPopup('Microwave inside of Commuter Lounge'), L.marker([41.0489167, -73.702861], {icon: microwaveIcon}).bindPopup('Microwave inside of the Library (2012 Lounge)'), L.marker([41.0480278, -73.702139], {icon: microwaveIcon}).bindPopup('Microwave inside of Student Lounge (Room 1006)')])
+
+	 	let vendingMachines = L.layerGroup([L.marker([41.0490833, -73.7018333], {icon: vendingMachineIcon}).bindPopup('Two vending machines behind Room 129 in Student Services'),L.marker([41.0484722, -73.702667], {icon: vendingMachineIcon}).bindPopup('Two vending machines in front lobby of Humanities'),L.marker([41.0480556, -73.702528], {icon: vendingMachineIcon}).bindPopup('Four vending machines next to Room 1032 in Humanities'),L.marker([41.0475278, -73.703389], {icon: vendingMachineIcon}).bindPopup('Three vending machines near Room 1021 in VA'),L.marker([41.04887230545104, -73.7041740618257], {icon: vendingMachineIcon}).bindPopup('Three vending machines in first floor lobby of CMFT'),L.marker([41.0488056, -73.704167], {icon: vendingMachineIcon}).bindPopup('Three vending machines near Room 0039 in basement of CMFT'), L.marker([41.0502778, -73.705306], {icon: vendingMachineIcon}).bindPopup('Four vending machines across from Room 1055 in Music Building'), L.marker([41.0502222, -73.704444], {icon: vendingMachineIcon}).bindPopup('Three vending machines next to Room 1015 in Dance Building'), L.marker([41.0497778, -73.703861], {icon: vendingMachineIcon}).bindPopup('Four vending machines on first floor of Natural Science Building'), L.marker([41.0500000, -73.703111], {icon: vendingMachineIcon}).bindPopup('Four vending machines on first floor of Social Science Building'), L.marker([41.0499722, -73.702111], {icon: vendingMachineIcon}).bindPopup('Three vending machines along back wall in Commuter Lounge')])
+
+ 	var diningBuildingsAndMarkers = L.layerGroup([diningBuildings,vendingMachines,microwaves])
+
+	 	L.marker([41.049258, -73.702343], {title: "clocktower",icon: clocktowerIcon}).addTo(map);
+
+	 	var hikingTrails = L.layerGroup([L.geoJSON(alumniVillageTrailJSON).bindPopup('Alumni Village Trail'), L.geoJSON(blindBrookTrailJSON).bindPopup('Blind Brook Trail')
+	 		, L.geoJSON(woodsTrailJSON).bindPopup('Woods Trail'), L.geoJSON(protectedForestTrailJSON).bindPopup('Protected Forest Trail')])
+
+	 	hikingTrails.eachLayer(function(layer) {
+	 		if (layer.setStyle) {
+    // For vector layers like L.Circle, L.Polygon
+	 			layer.setStyle({ dashArray: 5, color: '#F29B44', weight: 4, });
+	 		}
+	 	});
+
+//layer groups
+	 	let baseMaps = {
+	 		"Streets": light,
+	 		"Topographic": topo
+	 	};
+
+	 	let overlayMaps = {
+	 		"Academic Buildings" : academicBuildings,
+	 		"Student Services" : studentServicesBuildings,
+	 		"Dining" : diningBuildings,
+	 		"Broadview Buildings": broadviewBuildings,
+	 		"Parking" : parkingLotsAndMarker,
+	 		"Pedestrian Tunnels" : pedestrianTunnels,
+	 		"Hiking Trails" : hikingTrails,
+	 		"Microwaves" : microwaves,
+	 		"Vending Machines" : vendingMachines,
+	 		"White Plains Loop" : whitePlainsLoop,
+	 		"Port Chester Loop" : portChesterLoop,
+	 		"Current Events" : events,
+	 	};
+
+	 	L.control.layers(baseMaps,overlayMaps).addTo(map);
+	 	const x = document.getElementById("demo");
+
+//get location using watchPosition(every 10 seconds EDIT: try to worrk)
+
+	 	function getLocation(){
+
+        // Marker for current location
+	 		var gpsIcon = L.icon({
+	 			iconUrl: 'assets/icons/livegpsicon.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+});
+	 		var marker = L.marker([0, 0], {icon: gpsIcon}).addTo(map);
+
+        // Watch the user's location
+	 		if (navigator.geolocation) {
+	 			navigator.geolocation.watchPosition(
+	 				function (position) {
+	 					var lat = position.coords.latitude;
+	 					var lng = position.coords.longitude;
+
+        // Update marker position
+	 					marker.setLatLng([lat, lng]);
+
+        // Keep map centered on user without changing zoom
+	 					// map.panTo([lat, lng]);  
+	 				},
+	 				function (error) {
+	 					console.error("Error obtaining location", error);
+	 				},
+	 				{
+	 					enableHighAccuracy: true,
+	 					maximumAge: 0
+	 				}
+	 				);
+	 		} else {
+	 			alert("Geolocation is not supported by your browser");
+	 		}
+	 	}
+
+
+// TANEER'S NOTES FOR EPISTEMIC PURPOSES: create a leafet layer(?) which is extension of L.control layer
+
+	 	L.Control.GPS = L.Control.extend({
+	 		onAdd: function(map) {
+    	//a create button element that can be called by the variable "button"
+	 			var button = L.DomUtil.create('button');
+
+        //styling the buttons width, height and using innerHTML give it an img element
+	 			button.style.width = '40px';
+	 			button.style.height = '40px';
+	 			button.innerHTML = '<img class="gps-button" src="assets/icons/gps.png">'
+
+        //Leaflet DOM Event to disable clicking on the map underneath the button 
+
+	 			L.DomEvent.disableClickPropagation(button);
+
+        //Leaflet DomEvent where when a click is exectued on the variable "button", it runs a desired function
+
+	 			L.DomEvent.on(button, 'click', function(){
+
+        	//the desired function of getLocation()
+	 				getLocation()
+	 			});
+
+        //initalizes and shows(?) the button variable on the leaflet control layer
+
+	 			return button;
+	 		},
+
+	 		onRemove: function(map) {
+        // Nothing to do here
+	 		}
+	 	});
+
+//equals the previous created L.Control.GPS to another leaflet function that is called "L.control.gps". Not sure why the lowercase makes a difference tho
+
+	 	L.control.gps = function(opts) {
+	 		return new L.Control.GPS(opts);
+	 	}
+
+//a constant that is created to call the previously created L.control.gps
+
+	 	const gpsControl = L.control.gps({ position: 'topright' }).addTo(map);
+
+	 	var sidebar = L.control.sidebar('sidebar', {
+	 		position: 'left'
+	 	});
+
+	 	map.addControl(sidebar);
+	 	sidebar.show();
+
+	 	//function to open pop up for navigation after clicking for directions
+	 	var contributionsButton = document.getElementById("contributions-button")
+	 	var contributionsModal = document.getElementById("contributions-modal");
+
+	 	contributionsButton.onclick = function(){
+	 		contributionsModal.style.display = "block";
+	 	}
+
+	 	var googleMapsButton = document.getElementById("google-maps-button")
+	 	var directionsModal = document.getElementById("directions-modal");
+	 	var directionsContent = document.getElementById("directions-content");
+
+
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+	 	googleMapsButton.onclick = function(){
+	 		directionsModal.style.display = "block";
+	 	}
+
+// Get the <span> element that closes the modal
+	 	var contributionsSpan = document.getElementsByClassName("close")[1]
+
+	 	var directionsSpan = document.getElementsByClassName("close")[0];
+	 	;
+
+// When the user clicks on <span> (x), close the modal
+	 	contributionsSpan.onclick = function() {
+	 		contributionsModal.style.display = "none";
+	 	}
+
+	 	directionsSpan.onclick = function() {
+	 		directionsModal.style.display = "none";
+	 		directionsContent.src = ""
+	 	}
+
+	 	let allBuildings = L.featureGroup([academicBuildings,broadviewBuildings,diningBuildings,studentServicesBuildings])
+
+//function that removes contributorButton from view after clicking any kind of vector layer
+	 	allBuildings.on('click', function(event) {
+        // This function will be called whenever a click occurs on the map
+	 		console.log("Map click event fired!");
+
+        // Get the layer that was clicked
+	 		var clickedLayer = event.target;
+	 		console.log(event.target);
+
+        // Check if the clicked target is a vector layer
+	 		console.log("Clicked layer:", clickedLayer);
+	 		googleMapsButton.style.display = "block";
+	 		contributionsButton.style.display = "none";
+	 		console.log(contributionsButton.style.display)
+	 	});
+
+	 </script>
+
+
+	 <footer>
+	 </footer>
+
+
+	</body>
+	</html>

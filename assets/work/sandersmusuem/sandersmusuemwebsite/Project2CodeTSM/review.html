@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sanders' Comic Conservation Museum</title>
+	 <!-- 
+         Comic Museum Home Page
+         Filename: index.html
+
+         Author: Taneer Middleton
+         Date:   2/13/2023
+		 Home webpage for Sanders' Comic Conservation Museum
+      -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<script src="modernizr.custom.40753.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Kanit&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="styles.css">
+		<a href="https://churchstmarketplace.com/earth-prime-comics" rel="location.html"></a>
+	</head>
+<body>
+<div class="container">
+
+<header>
+
+<h1 id="title"><a href="index.html"><img src="images/superherologo.gif" height="659" width="165"></a></h1> 
+
+<h2 id="quote1"> “By stripping down an image to its essential "meaning", an artist can amplify that meaning in a way that realistic art can't.” -Scott McCloud, Understanding Comics</h2>
+
+</header>
+<nav>
+<div class="navigation-menu-button">
+			<img src="images/menu.png" width="63" height="57" alt="Show navigation">
+</div>
+<ul class="sitenavigation">
+	<li><a href="index.html">Home</a></li>
+	<li><a href="ourmission.html">Our Mission</a></li>
+	<li><a href="https://churchstmarketplace.com/earth-prime-comics" target=”_blank”>Location</a></li>
+	<li><a href="review.html"> Review Us</a></li>
+</ul>
+</nav>
+<body>
+	<h1> Leave a Review </h1>
+
+<form action="results.html">
+	<fieldset class="contactinfo">
+		<legend> Contact Information </legend>
+			<label for="nameinput">
+				Name
+				<input type="text" name="name" id="nameinput">
+			</label>
+			<label for="emailinput">
+				Email
+				<input type="email" name="email" id="emailinput">
+			</label>
+			<label for="phoneinput">
+				Phone
+				<input type="phone" name="phone" id="phoneinput">
+			</label>
+			<label id="birthdateinput" name="birthdate">
+					Birthdate
+						<select id="birthdate-month" name="birthdate-month">
+						<option value="01"> January </option>
+						<option value="02"> Febuary </option>
+						<option value="03"> March </option>
+						<option value="04"> April </option>
+						<option value="05"> May </option>
+						<option value="06"> June </option>
+						<option value="07"> July </option>
+						<option value="08"> August </option>
+						<option value="09"> September </option>
+						<option value="10"> October </option>
+						<option value="11"> November </option>
+						<option value="12"> December </option>
+						</select>
+						<select id="birthdate-day" name="birthdate-day">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+						</select>
+						<select id="birthdate-year" name="birthdate-year">
+						<option value="1990">1990</option>
+						<option value="1991">1991</option>
+						<option value="1992">1992</option>
+						<option value="1993">1993</option>
+						<option value="1994">1994</option>
+						<option value="1995">1995</option>
+						<option value="1996">1996</option>
+						<option value="1997">1997</option>
+						<option value="1998">1998</option>
+						<option value="1999">1999</option>
+						<option value="2000">2000</option>
+						</select>
+				</label>
+	</fieldset>
+	<fieldset class="exhibitinfo">
+		<legend> Exhibits Visited </legend>
+			<label for="invention">
+			<input type="checkbox" id="invention" value="Invention" name="exhibit">
+			The Invention of Comic Strip
+			</label>
+			<label for="art">
+			<input type="checkbox" id="art" value="Art" name="exhibit">
+			The Art of Comic Strip
+			</label>
+			<label for="conserve">
+			<input type="checkbox" id="conserve" value="Conserve" name="exhibit">
+			Conservation of Art Works
+			</label>
+	</fieldset>
+	<fieldset>
+		<legend class="experienceinfo"> Rate Your Experience </legend>
+			<label for="1">
+				<input type="radio" name="experience" id="1" value="1">
+				1
+			</label>
+			<label for="2">
+				<input type="radio" name="experience" id="2" value="2">
+				2
+			</label>
+			<label for="3">
+				<input type="radio" name="experience" id="3" value="3" >
+				3
+			</label>
+			<label for="4">
+				<input type="radio" name="experience" id="4" value="4">
+				4
+			</label>
+			<label for="5">
+				<input type="radio" name="experience" checked id="5" value="5">
+				5
+			</label>			
+	</fieldset>
+	<fieldset>
+		<legend class="feedbackinfo"> Write feedback below </legend>
+			<label for="feedbackinput">
+					<textarea id="feedbackinput" name="feedback" rows="4" cols="60"></textarea>
+			</label>
+	<fieldset class="submitbutton">
+		<input type="submit" id="submit" value="Submit">
+	</fieldset>
+	</fieldset>
+</form> 
+
+</body>
+<footer>
+	<h1> Truth, Justice, and the American Way &#9733; Burlington, VT &#9733;
+ (802-865-7188)  </h1>
+</footer>
+</html>
