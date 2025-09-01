@@ -18,10 +18,6 @@ crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"></script>
-
 <script src="JSON/broadviewJSON.js"></script>
 <script src="JSON/diningJSON.js"></script>
 <script src="JSON/studentServicesBuildingsJSON.js"></script>
@@ -42,7 +38,7 @@ crossorigin=""></script>
 
 		@font-face {
   font-family: Franklin Gothic Heavy;  /* Choose a unique name */
-  src: url('fonts/FRAHV.TTF') format('truetype'), /* WOFF2 is preferred */
+  src: url('fonts/FRAHV.ttf') format('truetype'), /* WOFF2 is preferred */
 }
 
 		html {
@@ -393,7 +389,7 @@ Sir Trousers, my beloved FigPal
 				</div>
 				<div>
 					<!-- <h1 id="taneer-signature">Taneer Middleton </h1> -->
-					<button id="contributions-button"> SEE CONTRIBUTORS </button>
+					<button id="contributions-button" onclick="showContributions()"> SEE CONTRIBUTORS </button>
 				</div>
 			</div>
 		</div>

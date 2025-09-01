@@ -236,7 +236,14 @@ transform: translate(-50vw, -50vh);*/
 	display: none;
 }
 
-#nextbutton, #prevbutton{
+
+#slide-buttons-div{
+	display: 	inline-flex;
+	justify-content: center;
+	gap: 	15px;
+}
+
+#nextbutton, #prevbutton, #descbutton	{
 	display: none;
 	z-index: 3;
 	/*border-radius: 8px;*/
@@ -244,20 +251,26 @@ transform: translate(-50vw, -50vh);*/
 	font-family: Roboto;
 	font-weight: 600;
 	position: relative;
-	width: 193.6px;
+	min-width: 193.6px;
 	height: 93.28;
-	margin: auto;
+	/*margin: auto;*/
 	background-color: #FFFFF0;
 	color: #212A37;
 }
 
 #nextbutton {
-	right: 72px;
+	/*right: 72px;*/
 
 }
 
 #prevbutton {
-	left: 72px;
+	/*left: 72px;*/
+
+}
+
+.buttons-div {
+	display: inline-flex;
+	justify-content: space-between ;
 
 }
 
@@ -287,42 +300,52 @@ transform: translate(-50vw, -50vh);*/
 
 
 #modal-container {
-/*width: 100%;*/
+width: 100%;
 /*height: 100%;*/
 display: flex;
 flex-direction: column;
 /*padding: 3% 1.5%;*/
 /*align-items: center;*/
 justify-content: space-between ;
-/*padding: 4em;*/
-width: 1000px;
+padding: 2em;
+/*width: 1000px;*/
 /*margin: 103px 22px;*/
-margin: auto;
+/*margin: auto;*/
 
 
 }
 #modal-img {
 	/*display: flex;*/
 	margin: auto;
-	max-height: 500px;
+	max-height: 550px;
 	width: auto;
-	max-width: 700px;
+	max-width: 1000px;
 
 }
 
 #caption-and-links {
 	margin-top: 33px;
-	display: inline-flex;
+	/*display: inline-flex;*/
 	justify-content: space-between;
+	display: none;
+
+}
+
+#image-and-caption{
+	display: inline-flex;
+	gap: 50px;
+
 }
 
 #caption {
 	background-color: #FFFFF0;
 	color: #212A37;
-	width: 600px;
+	/*width: 600px;*/
 	max-height: 298px;
 	padding: 27px 17px;
-	margin-right: 100px;
+	/*margin-right: 100px;*/
+	display: none ;
+	max-width: 750px;
 
 }
 
@@ -378,8 +401,27 @@ div#links  {
 	to {transform:scale(1)}
 }
 
+#title-and-close h1 {
+	color: #FFFFF0;
+font-family: Roboto;
+font-size: 48px;
+font-style: italic;
+font-weight: 600;
+line-height: normal;
+
+}
+
+#title-and-close {
+	display: inline-flex;
+	justify-content: space-between ;
+	width: 100%;
+	flex-direction: row-reverse;
+
+
+}
+
 .close {
-	position: absolute;
+	/*position: absolute;*/
 	width: 75px;
 	height: 75px;
 	top: 15px;
@@ -424,6 +466,7 @@ margin:auto;
 	.mobile-navigation {
 		display: block;
 		align-self: start;
+		/*z-index: 2;*/
 	}
 
 	.hamburger {
@@ -451,6 +494,9 @@ line-height: normal;
 
 	.display-div {
 			width: 335px;
+			position: relative;
+			padding-top: 1em;
+			height: auto;
 
 	}
 	.display-text {
@@ -510,14 +556,28 @@ line-height: normal;
 /*height: 100%;*/
 display: flex;
 flex-direction: column;
-/*padding: 3% 1.5%;*/
+padding: 10% 3%;
 /*align-items: center;*/
 justify-content: space-between ;
 /*padding: 4em;*/
 /*width: 90%;*/
 /*margin: 103px 22px;*/
-margin: auto;
+/*margin: auto;*/
 align-items: center;
+}
+
+#title-and-close	h1 {
+	font-size: 24px;
+	color: #FFFFF0;
+	font-style: italic;
+	max-width: 226px;
+}
+
+#image-and-caption	{
+	flex-direction: column;
+	padding-bottom: 25px;
+	height: 100%;
+	justify-content: space-evenly;
 }
 
 #modal-img {
@@ -548,6 +608,7 @@ align-items: center;
 	padding: 15px;
 	margin-right: 0px;
 	margin-bottom: 16px;
+	max-width: 352px;
 
 }
 
@@ -584,7 +645,21 @@ div#links  {
 	max-width: 135px;
 }
 
-#prevbutton, #nextbutton {
+.buttons-div {
+	flex-direction: column;
+	gap: 15px;
+	/*width: 	100%;		*/
+}
+
+#slide-buttons-div{
+	display: 	inline-flex;
+	justify-content: center;
+	gap: 	15px;
+}
+
+
+
+#prevbutton, #nextbutton, #descbutton {
 	/*display: none !important;*/
 	font-size: 20px;
 	/*padding: 46px 22px;*/
@@ -594,14 +669,19 @@ div#links  {
 	right: 0;
 	left: 0;
 	margin: 0;
+	min-width: unset;
+}
+
+#descbutton	{
+	width: 	100%;
 }
 
 .close {
-	position: absolute;
+	/*position: absolute;*/
 	width: 35px;
 	height: 35px;
-	top: 15px;
-	right: 35px;
+/*	top: 15px;
+	right: 35px;*/
 	background-color: #f1f1f1;
 	font-size: 40px;
 	font-weight: bold;
@@ -685,7 +765,13 @@ margin:auto;
 }
 
 #modal-container {
-	width: 716px;
+	/*width: 716px;*/
+	width: 100%;
+}
+
+#modal-img {
+	max-width: 667px;
+	max-height: 863px;
 }
 
 #links {
@@ -693,8 +779,15 @@ margin:auto;
 }
 
 #caption {
-		margin-bottom: 34px;
+		margin-bottom: 60px;
 		margin-right: 0px;
+}
+
+#image-and-caption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
 }
 
 

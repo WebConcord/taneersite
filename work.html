@@ -190,15 +190,17 @@ Your browser does not support the video tag.
 
 <div id="myModal" class="modal">
 
-
-	<div><span class="close"><p>&times;<p></span></div>
-
-		<button onclick="prevSlide()" id="prevbutton"> Prev </button>
-
 		<div id="modal-container">
+
+			<div id= "title-and-close">
+	<!-- <h1>Campus Interactive Map</h1> -->
+	<div class="close"><span><p>&times;<p></span></div>
+</div>
+
+			<div id="image-and-caption">
 			<img id="modal-img">
 			<!-- Modal Caption (Image Text) -->
-			<div id="caption-and-links">
+			<!-- <div id="caption-and-links"> -->
 				<div id="caption">
 
 					<h1></h1>
@@ -207,12 +209,21 @@ Your browser does not support the video tag.
 
 					</div>
 
-					<div id="links"></div>
+					<!-- <div id="links"></div> -->
 
 				</div>
-			</div>
+			<!-- </div>  -->
 
+		<div class="buttons-div">
+			<div id="slide-buttons-div">
+			<button onclick="prevSlide()" id="prevbutton"> Prev </button>
 			<button onclick="nextSlide()" id="nextbutton"> Next </button>
+		</div>
+			<button onclick="showDesc()" id="descbutton"> Show Desc. </button>
+
+		</div>
+
+					</div>
 
 
 		</div>
