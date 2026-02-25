@@ -165,7 +165,6 @@ pointer-events: none;
 	/*position: absolute; */
 	text-align: center; 
 	color: #FFFFF0; 
-	font-size: 48px; 
 	font-family: Metropolis; 
 	font-weight: 700; 
 	word-wrap: break-word;
@@ -178,6 +177,16 @@ pointer-events: none;
 	left: 50vw;
 top: 50vh;
 transform: translate(-50vw, -50vh);*/
+
+}
+
+.display-text p {
+	font-size: 48px; 
+
+}
+
+.display-text h1 {
+	font-size: 72px; 
 
 }
 
@@ -499,9 +508,20 @@ line-height: normal;
 			height: auto;
 
 	}
-	.display-text {
+/*	.display-text {
 		font-size: 36px;
-	}
+	}*/
+
+
+.display-text p {
+	font-size: 36px; 
+
+}
+
+.display-text h1 {
+	font-size: 48px; 
+
+}
 
 		.gallery {
 		/*width: 100%;*/
