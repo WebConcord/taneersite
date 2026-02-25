@@ -981,7 +981,7 @@ directionsContent.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3
 	 					marker.setLatLng([lat, lng]);
 
         // Keep map centered on user without changing zoom
-	 					// map.panTo([lat, lng]);  
+	 					map.panTo([lat, lng]);  
 	 				},
 	 				function (error) {
 	 					console.error("Error obtaining location", error);
