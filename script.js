@@ -117,7 +117,7 @@ console.log(interactiveMapCont)
 let sandersMusuem = {
     sandersMusuemThumbnail: document.getElementById("sandersmusuem-thumbnail"),
     sandersMusuemSlides: document.querySelectorAll(".sandersmusuem-slides img"),
-    sandersMusuemHeader: "Sanders' Comic Conservation Musuem Website",
+    sandersMusuemHeader: "Sanders' Comic Conservation Museum Website",
     sandersMusuemDesc: "<a target='blank' href='assets/work/sandersmusuem/sandersmusuemwebsite/index.html'>Website</a> created for a hypothetical comic book musuem in Vermont. Includes a working form, and accesible and responsive design.",
     // links: "<a target='blank' href='assets/work/sandersmusuem/sandersmusuemwebsite/index.html'>To Website</a>"
 }
